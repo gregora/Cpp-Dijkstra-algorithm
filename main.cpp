@@ -70,6 +70,7 @@ int main(){
 
     int minid;
     int minvalue = MAX_INT;
+    int lastNeighbour;
     int eraseid;
 
     //find the smallest queue member
@@ -77,6 +78,7 @@ int main(){
 
       if(minvalue > queue.at(y + 2)){
         minvalue = queue.at(y + 2);
+        lastNeighbour = queue.at(y + 1);
         minid = queue.at(y);
         eraseid = y;
       }
@@ -85,7 +87,7 @@ int main(){
 
     //set smallest queue member to solved
     solved[minid][0] = minvalue;
-    solved[minid][1] = lastId; //probably a bug
+    solved[minid][1] = lastNeighbour; //probably a bug
 
     int curDist = queue.at(eraseid + 2);
 
@@ -143,7 +145,33 @@ int main(){
   }
 
   std::cout << "---- Finished with calculations ----" << std::endl;
-  std::cout << solved[endv][0] << std::endl;
 
+  //check if there even is a path
+  if(solved[endv][0] == -1){
+    std::cout << "There is no path" << std::endl;
+  }
+
+  //find path (back tracking)
+  int currId = endv;
+  std::vector<int> path;
+
+  while(startv != currId){
+
+    path.push_back(currId);
+    currId = solved[currId][1];
+
+  }
+
+  path.push_back(startv);
+
+  std::cout << "Path:";
+
+  //output path
+  for(int x = 0; x < path.size(); x++){
+    std::cout << " " << path.at(path.size() - x - 1);
+  }
+
+  //output distance
+  std::cout << "\nDistance: " << solved[endv][0] << std::endl;
 
 }

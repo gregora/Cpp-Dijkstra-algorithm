@@ -8,7 +8,7 @@ dijkstra.cpp is intended as a library, that you include with dijkstra.h file (or
 ### Input
 
 * `vector<int>` This is the first argument that the function accepts. It is a vector, in which all the edges (connections) are stored. For example: `std::vector<int> vect {1, 2, 3, 1, 4, 2}` would represent that you can go from vertex 1 to vertex 2, with distance 3, and that there is a path from vertex 1 to vertex 4 with a distance 2. **The graph is directed.**
-* `int vsize` This integer represesnts the number of vertices
+* `int vsize` This integer represents the number of vertices
 * `int startv` This integer represents the id of the starting vertex (node)
 * `int endv` This integer represents the id of the ending vertex (node)
 

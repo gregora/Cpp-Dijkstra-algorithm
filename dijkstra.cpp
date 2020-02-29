@@ -1,51 +1,18 @@
-#include <iostream>
-#include <string>
 #include <vector>
 #include <limits>
-
-std::vector <int> edges; // {vertex1, vertex2, v1 -> v2 distance, vertex3, vertex4, v3 -> v4 distance} - vertex2 is connected with vertex 1 with distance v1 -> v2 ...
-int vertices;
-std::string inp1, inp2, inp3;
-
-int startv;
-int endv;
+#include <string>
 
 int MAX_INT = std::numeric_limits<int>::max();
 
-std::vector <int> queue; // {vertexid, last id, distance}
+std::string dijkstra(std::vector<int> &edges, int vsize, int startv, int endv){
 
-int main(){
+  std::vector <int> queue; // {vertexid, last id, distance}
 
-  //get vertices number and create solved array
-  std::cout << "How many vertices are in your graph? ";
-  std::cin >> inp1;
-  vertices = std::stoi(inp1);
-  int solved[vertices + 1][2]; // {min-distance, last vertex id}
-  for(int fill = 0; fill < vertices + 1; fill++){
+  //initiate solved array
+  int solved[vsize + 1][2]; // {min-distance, last vertex id}
+  for(int fill = 0; fill < esize + 1; fill++){
     solved[fill][0] = -1;
     solved[fill][1] = -1;
-  }
-
-  std::cout << "From which vertex do you want to start, and to which vertex do you want to come (0 [zero] is not valid)? ";
-  std::cin >> inp1 >> inp2; // vertex1 id, vertex2 id
-
-  startv = std::stoi(inp1); //starting vertex id
-  endv = std::stoi(inp2); //ending vertex id
-
-  while (true){
-
-    std::cin >> inp1 >> inp2 >> inp3;
-
-    if(inp1 != "end" && inp2 != "end" && inp3 != "end"){
-
-      edges.push_back(std::stoi(inp1)); //vertex1
-      edges.push_back(std::stoi(inp2)); //vertex2
-      edges.push_back(std::stoi(inp3)); //distance
-
-    }else{
-      break;
-    }
-
   }
 
   solved[startv][0] = 0;
@@ -143,12 +110,12 @@ int main(){
 
 
   }
+  //end path finding
 
-  std::cout << "---- Finished with calculations ----" << std::endl;
 
   //check if there even is a path
   if(solved[endv][0] == -1){
-    std::cout << "There is no path" << std::endl;
+    //std::cout << "There is no path" << std::endl;
   }
 
   //find path (back tracking)
@@ -164,14 +131,15 @@ int main(){
 
   path.push_back(startv);
 
-  std::cout << "Path:";
+  //initiate output string and add distance
+  std::string output = std::to_string(solved[endv][0]) + ";";
 
-  //output path
+  //add path to string
   for(int x = 0; x < path.size(); x++){
-    std::cout << " " << path.at(path.size() - x - 1);
+    output = output + " " + std::to_string(path.at(path.size() - x - 1));
   }
 
-  //output distance
-  std::cout << "\nDistance: " << solved[endv][0] << std::endl;
+  //return string
+  return(output);
 
 }
